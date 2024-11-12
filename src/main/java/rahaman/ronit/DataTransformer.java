@@ -29,8 +29,7 @@ public class DataTransformer {
 
             Date consulDateSql = rs.getDate("Consul_Dt");
             LocalDate consulDate = consulDateSql != null ? consulDateSql.toLocalDate() : null;
-            assert consulDate != null;
-            boolean overThirtyDays =  ChronoUnit.DAYS.between(consulDate, LocalDate.now()) > 30;
+            boolean overThirtyDays = consulDate != null && ChronoUnit.DAYS.between(consulDate, LocalDate.now()) > 30;
 
             if (!countryTables.containsKey(country)) {
                 new TableCreator(conn).createCountryTable(country);
