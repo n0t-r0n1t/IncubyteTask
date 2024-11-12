@@ -11,7 +11,7 @@ public class DatabaseBase {
 
     @BeforeEach
     public void setUp() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1");
+        connection = DriverManager.getConnection("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=0");
     }
 
     @AfterEach

@@ -39,24 +39,26 @@ public class CSVParser {
     private void parseHeaders(String headerLine) {
         String[] headers = headerLine.split("\\|");
         for (int i = 0; i < headers.length; i++) {
-            headerIndexMap.put(headers[i].trim().replaceAll(" ", "_").toLowerCase(), i);
+            headerIndexMap.put(headers[i].trim()
+                    .replaceAll(" ", "")
+                    .replaceAll("_", "")
+                    .toLowerCase(), i);
         }
     }
 
     private Customer parseLineToCustomer(String line) {
         String[] parts = line.split("\\|");
 
-        // Parse fields based on header presence
-        String name = getField(parts, "customer_name");
-        String customerId = getField(parts, "customer_id");
-        LocalDate openDate = parseDate(getField(parts, "open_date"), DATE_FORMATTER);
-        LocalDate lastConsultedDate = parseDate(getField(parts, "last_consulted_date"), DATE_FORMATTER);
-        String vaccinationType = getField(parts, "vaccination_id");
-        String doctorConsulted = getField(parts, "dr_name");
+        String name = getField(parts, "customername");
+        String customerId = getField(parts, "customerid");
+        LocalDate openDate = parseDate(getField(parts, "opendate"), DATE_FORMATTER);
+        LocalDate lastConsultedDate = parseDate(getField(parts, "lastconsulteddate"), DATE_FORMATTER);
+        String vaccinationType = getField(parts, "vaccinationid");
+        String doctorConsulted = getField(parts, "drname");
         String state = getField(parts, "state");
         String country = getField(parts, "country");
         LocalDate dob = parseDate(getField(parts, "dob"), DOB_FORMATTER);
-        boolean isActive = "A".equals(getField(parts, "is_active"));
+        boolean isActive = "A".equals(getField(parts, "isactive"));
 
         return new Customer(name, customerId, openDate, lastConsultedDate, vaccinationType, doctorConsulted, state, country, dob, isActive);
     }
